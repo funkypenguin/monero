@@ -113,7 +113,7 @@ RUN set -ex \
     && make install
 
 
-RUN git clone -b $BRANCH https://github.com/monero-project/monero.git /src
+RUN git clone -b $BRANCH --recursive https://github.com/monero-project/monero.git /src
 WORKDIR /src
 
 ARG NPROC
