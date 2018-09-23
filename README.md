@@ -9,7 +9,7 @@
 
 # Contents
 
-1. [What is funkypenguin/monero?](##what-is-funkypenguinmonero)
+1. [What is funkypenguin/monero?](#what-is-funkypenguin-monero)
 2. [Why should I use this?](#why-should-i-use-this)
 3. [How do I use it?](#how-do-i-use-this)
 4. [CHANGELOG](#changelog)
