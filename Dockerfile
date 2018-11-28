@@ -6,6 +6,10 @@ FROM ubuntu:16.04 as builder
 ARG BRANCH=v0.13.0.4
 ENV BRANCH=${BRANCH}
 
+# Unneeded in build stage, but avoids hook errors
+ARG BUILD_DATE
+ARG VCS_REF
+
 RUN set -ex && \
     apt-get update && \
     apt-get --no-install-recommends --yes install \
@@ -126,6 +130,16 @@ RUN set -ex && \
 
 # runtime stage
 FROM ubuntu:16.04
+
+# Now we DO need these, for the auto-labeling of the image
+ARG BUILD_DATE
+ARG VCS_REF
+
+# Good docker practice, plus we get microbadger badges
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-url="https://github.com/funkypenguin/monero.git" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.schema-version="2.2-r1"
 
 RUN set -ex && \
     apt-get update && \
