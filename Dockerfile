@@ -3,12 +3,7 @@
 # builder stage
 FROM ubuntu:16.04 as builder
 
-# BUILD_DATE and VCS_REF are immaterial, since this is a 2-stage build, but our build
-# hook won't work unless we specify the args
-ARG BUILD_DATE
-ARG VCS_REF
-
-ARG BRANCH=v0.12.3.0
+ARG BRANCH=v0.13.0.4
 ENV BRANCH=${BRANCH}
 
 RUN set -ex && \
@@ -118,7 +113,7 @@ RUN set -ex \
     && make install
 
 
-RUN git clone -b $BRANCH --recursive https://github.com/monero-project/monero.git /src
+RUN git clone -b $BRANCH https://github.com/monero-project/monero.git /src
 WORKDIR /src
 
 ARG NPROC
@@ -131,16 +126,6 @@ RUN set -ex && \
 
 # runtime stage
 FROM ubuntu:16.04
-
-# Now we DO need these, for the auto-labeling of the image
-ARG BUILD_DATE
-ARG VCS_REF
-
-# Good docker practice, plus we get microbadger badges
-LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-url="https://github.com/funkypenguin/monero.git" \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.schema-version="2.2-r1"
 
 RUN set -ex && \
     apt-get update && \
