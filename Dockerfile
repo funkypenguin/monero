@@ -120,6 +120,9 @@ RUN set -ex \
 RUN git clone -b $BRANCH https://github.com/monero-project/monero.git /src
 WORKDIR /src
 
+# Make fails without this for some reason - @funkypenguin
+RUN git submodule init && git submodule update
+
 ARG NPROC
 RUN set -ex && \
     rm -rf build && \
